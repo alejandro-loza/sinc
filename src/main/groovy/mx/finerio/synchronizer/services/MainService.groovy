@@ -25,6 +25,11 @@ class MainService {
     run( 7L )
   }
 
+  @Scheduled(cron = '0 1 2 * * *')
+  void runHsbc() {
+    run( 8L )
+  }
+
   private void run( Long institutionId ) {
 
     def ids = credentialService.findAllIdsByInstitutionId( institutionId )
