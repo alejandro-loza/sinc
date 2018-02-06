@@ -19,4 +19,7 @@ class Credential {
   @Column(name = 'provider_id', nullable = true)
   Long providerId
 
+  @Column(name = 'status', nullable = false)
+  String status
+
 }

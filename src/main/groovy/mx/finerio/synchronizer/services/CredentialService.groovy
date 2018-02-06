@@ -13,8 +13,8 @@ class CredentialService {
 
   List findAllIdsByInstitutionId( Long institutionId ) throws Exception {
 
-    credentialRepository.findAllByInstitutionIdAndProviderId(
-      institutionId, 3L )*.id
+    credentialRepository.findAllByInstitutionIdAndProviderIdAndStatus(
+      institutionId, 3L, 'ACTIVE' )*.id
 
   }
 
