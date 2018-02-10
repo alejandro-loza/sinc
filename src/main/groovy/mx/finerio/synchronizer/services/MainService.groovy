@@ -36,6 +36,11 @@ class MainService {
     runByInstitutionId( 8L )
   }
 
+  @Scheduled(cron = '0 2 2 * * *')
+  void runScotiabank() {
+    runByInstitutionId( 11L )
+  }
+
   private void runByInstitutionId( Long institutionId ) {
 
     if ( isInstitutionActive( institutionId  ) ) {
