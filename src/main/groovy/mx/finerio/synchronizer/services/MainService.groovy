@@ -41,7 +41,7 @@ class MainService {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 3 2 * * *')
+  @Scheduled(cron = '0 0 9 * * *')
   void runBanorte() {
     runByInstitutionId( 12L )
   }
