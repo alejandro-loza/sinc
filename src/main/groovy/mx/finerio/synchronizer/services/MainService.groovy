@@ -37,6 +37,16 @@ class MainService {
   }
 
   @Scheduled(cron = '0 2 2 * * *')
+  void runAmex() {
+    runByInstitutionId( 9L )
+  }
+
+  @Scheduled(cron = '0 3 2 * * *')
+  void runInvex() {
+    runByInstitutionId( 10L )
+  }
+
+  @Scheduled(cron = '0 4 2 * * *')
   void runScotiabank() {
     runByInstitutionId( 11L )
   }
