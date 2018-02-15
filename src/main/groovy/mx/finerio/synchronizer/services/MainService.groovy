@@ -26,6 +26,11 @@ class MainService {
   @Autowired
   FinancialInstitutionRepository financialInstitutionRepository
 
+  @Scheduled(cron = '0 0 3 * * *')
+  void runBanamex() {
+    runByInstitutionId( 2L )
+  }
+
   @Scheduled(cron = '0 0 2 * * *')
   void runSantander() {
     runByInstitutionId( 7L )
