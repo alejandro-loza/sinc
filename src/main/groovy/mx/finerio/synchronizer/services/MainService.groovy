@@ -17,6 +17,9 @@ class MainService {
   @Value('${synchronizer.max_threads}')
   Integer maxThreads
 
+  @Value('${synchronizer.batch_timeout}')
+  Integer batchTimeout
+
   @Autowired
   ApiService apiService
 
@@ -99,6 +102,7 @@ class MainService {
 
       executorService.shutdown()
       executorService.awaitTermination( 10, TimeUnit.MINUTES )
+      Thread.sleep( batchTimeout )
 
     }
 
