@@ -64,6 +64,11 @@ class MainService {
     runByInstitutionId( 12L )
   }
 
+  @Scheduled(cron = '0 5 2 * * *')
+  void runInbursa() {
+    runByInstitutionId( 13L )
+  }
+
   private void runByInstitutionId( Long institutionId ) {
 
     if ( isInstitutionActive( institutionId  ) ) {
