@@ -24,6 +24,9 @@ class MainService {
   ApiService apiService
 
   @Autowired
+  BankConnectionService bankConnectionService
+
+  @Autowired
   CredentialService credentialService
 
   @Autowired
@@ -86,7 +89,7 @@ class MainService {
 
   private void run( Long institutionId ) throws Exception {
 
-    def ids = credentialService.findAllIdsByInstitutionId( institutionId )
+    def ids = getCredentialIds( institutionId )
     def indexPointer = 0
 
     while ( indexPointer < ids.size() ) {
@@ -110,6 +113,36 @@ class MainService {
       Thread.sleep( batchTimeout )
 
     }
+
+  }
+
+  private List getCredentialIds( institutionId ) throws Exception {
+
+    List filteredIds = []
+    def ids = credentialService.findAllIdsByInstitutionId( institutionId )
+
+    for ( int i = 0; i < ids.size(); i++ ) {
+
+      def currentId = ids[ i ]
+      def bankConnection = bankConnectionService.findLast( currentId )
+
+      if ( lastConnectionWasMoreThanAWeekAgo( bankConnection.startDate ) ) {
+        filteredIds <<  currentId
+      }
+
+    }
+
+    filteredIds
+
+  }
+
+  private boolean lastConnectionWasMoreThanAWeekAgo( Date date )
+      throws Exception {
+
+    def cal = Calendar.instance
+    cal.time = new Date()
+    cal.add( Calendar.HOUR, -168 )
+    date <= cal.time
 
   }
 
