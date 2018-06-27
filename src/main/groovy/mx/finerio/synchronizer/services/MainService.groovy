@@ -24,47 +24,50 @@ class MainService {
   ApiService apiService
 
   @Autowired
+  BankConnectionService bankConnectionService
+
+  @Autowired
   CredentialService credentialService
 
   @Autowired
   FinancialInstitutionRepository financialInstitutionRepository
 
-  @Scheduled(cron = '0 0 3 * * *')
+  @Scheduled(cron = '0 0 3 * * 3')
   void runBanamex() {
     runByInstitutionId( 2L )
   }
 
-  @Scheduled(cron = '0 0 2 * * *')
+  @Scheduled(cron = '0 0 2 * * 3')
   void runSantander() {
     runByInstitutionId( 7L )
   }
 
-  @Scheduled(cron = '0 1 2 * * *')
+  @Scheduled(cron = '0 1 2 * * 3')
   void runHsbc() {
     runByInstitutionId( 8L )
   }
 
-  @Scheduled(cron = '0 2 2 * * *')
+  @Scheduled(cron = '0 2 2 * * 3')
   void runAmex() {
     runByInstitutionId( 9L )
   }
 
-  @Scheduled(cron = '0 3 2 * * *')
+  @Scheduled(cron = '0 3 2 * * 3')
   void runInvex() {
     runByInstitutionId( 10L )
   }
 
-  @Scheduled(cron = '0 4 2 * * *')
+  @Scheduled(cron = '0 4 2 * * 3')
   void runScotiabank() {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 0 9 * * *')
+  @Scheduled(cron = '0 0 9 * * 3')
   void runBanorte() {
     runByInstitutionId( 12L )
   }
 
-  @Scheduled(cron = '0 5 2 * * *')
+  @Scheduled(cron = '0 5 2 * * 3')
   void runInbursa() {
     runByInstitutionId( 13L )
   }
@@ -86,7 +89,7 @@ class MainService {
 
   private void run( Long institutionId ) throws Exception {
 
-    def ids = credentialService.findAllIdsByInstitutionId( institutionId )
+    def ids = getCredentialIds( institutionId )
     def indexPointer = 0
 
     while ( indexPointer < ids.size() ) {
@@ -110,6 +113,36 @@ class MainService {
       Thread.sleep( batchTimeout )
 
     }
+
+  }
+
+  private List getCredentialIds( institutionId ) throws Exception {
+
+    List filteredIds = []
+    def ids = credentialService.findAllIdsByInstitutionId( institutionId )
+
+    for ( int i = 0; i < ids.size(); i++ ) {
+
+      def currentId = ids[ i ]
+      def bankConnection = bankConnectionService.findLast( currentId )
+
+      if ( lastConnectionWasMoreThanAWeekAgo( bankConnection.startDate ) ) {
+        filteredIds <<  currentId
+      }
+
+    }
+
+    filteredIds
+
+  }
+
+  private boolean lastConnectionWasMoreThanAWeekAgo( Date date )
+      throws Exception {
+
+    def cal = Calendar.instance
+    cal.time = new Date()
+    cal.add( Calendar.HOUR, -168 )
+    date <= cal.time
 
   }
 
