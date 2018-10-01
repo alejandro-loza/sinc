@@ -19,18 +19,18 @@ class CredentialServiceFindAllIdsByInstitutionId {
       'mx.finerio.synchronizer.aop.CredentialServiceFindAllIdsByInstitutionId' )
 
   @Pointcut(
-    value='execution(java.util.List mx.finerio.synchronizer.services.CredentialService.findAllIdsByInstitutionId(..)) && bean(credentialService) && args(institutionId)',
-    argNames='institutionId'
+    value='execution(java.util.List mx.finerio.synchronizer.services.CredentialService.findAllIdsByInstitutionId(..)) && bean(credentialService) && args(institutionId, lastUpdated)',
+    argNames='institutionId, lastUpdated'
   )
-  public void findAllIdsByInstitutionId( Long institutionId ) {}
+  public void findAllIdsByInstitutionId( Long institutionId, Date lastUpdated ) {}
 
-  @Before('findAllIdsByInstitutionId(institutionId)')
-  void before( Long institutionId ) {
-    log.info( "<< institutionId: {}", institutionId )
+  @Before('findAllIdsByInstitutionId(institutionId, lastUpdated)')
+  void before( Long institutionId, Date lastUpdated ) {
+    log.info( "<< institutionId: {}, lastUpdated: {}", institutionId, lastUpdated )
   }
 
   @AfterReturning(
-    pointcut='findAllIdsByInstitutionId(Long)',
+    pointcut='findAllIdsByInstitutionId(Long, java.util.Date)',
     returning='data'
   )
   void afterReturning( List data ) {
@@ -38,7 +38,7 @@ class CredentialServiceFindAllIdsByInstitutionId {
   }
 
   @AfterThrowing(
-    pointcut='findAllIdsByInstitutionId(Long)',
+    pointcut='findAllIdsByInstitutionId(Long, java.util.Date)',
     throwing='e'
   )
   void afterThrowing( Exception e ) {

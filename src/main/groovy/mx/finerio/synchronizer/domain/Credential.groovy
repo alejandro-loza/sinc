@@ -22,6 +22,9 @@ class Credential {
   @Column(name = 'status', nullable = false)
   String status
 
+  @Column(name = 'last_updated', nullable = false)
+  Date lastUpdated
+
   @Column(name = 'date_deleted', nullable = true)
   Date dateDeleted
 

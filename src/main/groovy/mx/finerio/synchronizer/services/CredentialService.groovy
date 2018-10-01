@@ -11,11 +11,12 @@ class CredentialService {
   @Autowired
   CredentialRepository credentialRepository
 
-  List findAllIdsByInstitutionId( Long institutionId ) throws Exception {
+  List findAllIdsByInstitutionId( Long institutionId, Date lastUpdated )
+      throws Exception {
 
     credentialRepository.
-        findAllByInstitutionIdAndProviderIdAndStatusAndDateDeletedIsNull(
-            institutionId, 3L, 'ACTIVE' )*.id
+        findAllByInstitutionIdAndProviderIdAndStatusAndLastUpdatedLessThanAndDateDeletedIsNull(
+            institutionId, 3L, 'ACTIVE', lastUpdated )*.id
 
   }
 
