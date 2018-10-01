@@ -133,31 +133,17 @@ class MainService {
 
   private List getCredentialIds( institutionId ) throws Exception {
 
-    List filteredIds = []
-    def ids = credentialService.findAllIdsByInstitutionId( institutionId )
-
-    for ( int i = 0; i < ids.size(); i++ ) {
-
-      def currentId = ids[ i ]
-      def bankConnection = bankConnectionService.findLast( currentId )
-
-      if ( lastConnectionWasMoreThanAWeekAgo( bankConnection.startDate ) ) {
-        filteredIds <<  currentId
-      }
-
-    }
-
-    filteredIds
+    credentialService.findAllIdsByInstitutionId(
+        institutionId, getLastUpdated() )
 
   }
 
-  private boolean lastConnectionWasMoreThanAWeekAgo( Date date )
-      throws Exception {
+  private Date getLastUpdated() throws Exception {
 
     def cal = Calendar.instance
     cal.time = new Date()
-    cal.add( Calendar.HOUR, -168 )
-    date <= cal.time
+    cal.add( Calendar.HOUR, -72 )
+    cal.time
 
   }
 
