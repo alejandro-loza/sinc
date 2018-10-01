@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CredentialRepository extends JpaRepository<Credential, String> {
 
-  List <IdOnly> findAllByInstitutionIdAndProviderIdAndStatusAndDateDeletedIsNull(
-      Long institutionId, Long providerId, String status )
+  List <IdOnly> findAllByInstitutionIdAndProviderIdAndStatusAndLastUpdatedLessThanAndDateDeletedIsNull(
+      Long institutionId, Long providerId, String status, Date lastUpdated )
 
 }
 
