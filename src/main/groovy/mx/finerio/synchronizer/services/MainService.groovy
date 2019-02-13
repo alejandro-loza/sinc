@@ -32,57 +32,57 @@ class MainService {
   @Autowired
   FinancialInstitutionRepository financialInstitutionRepository
 
-  @Scheduled(cron = '0 0 * * * *')
+  @Scheduled(cron = '0 0 6-22 * * *')
   void runBanamex() {
     runByInstitutionId( 2L )
   }
 
-  @Scheduled(cron = '0 2 * * * *')
+  @Scheduled(cron = '0 2 6-22 * * *')
   void runSantander() {
     runByInstitutionId( 7L )
   }
 
-  @Scheduled(cron = '0 4 * * * *')
+  @Scheduled(cron = '0 4 6-22 * * *')
   void runHsbc() {
     runByInstitutionId( 8L )
   }
 
-  @Scheduled(cron = '0 6 * * * *')
+  @Scheduled(cron = '0 6 6-22 * * *')
   void runAmex() {
     runByInstitutionId( 9L )
   }
 
-  @Scheduled(cron = '0 8 * * * *')
+  @Scheduled(cron = '0 8 6-22 * * *')
   void runInvex() {
     runByInstitutionId( 10L )
   }
 
-  @Scheduled(cron = '0 10 * * * *')
+  @Scheduled(cron = '0 10 6-22 * * *')
   void runScotiabank() {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 12 * * * *')
+  @Scheduled(cron = '0 12 6-22 * * *')
   void runBanorte() {
     runByInstitutionId( 12L )
   }
 
-  @Scheduled(cron = '0 14 * * * *')
+  @Scheduled(cron = '0 14 6-22 * * *')
   void runInbursa() {
     runByInstitutionId( 13L )
   }
 
-  @Scheduled(cron = '0 16 * * * *')
+  @Scheduled(cron = '0 16 6-22 * * *')
   void runBancoAzteca() {
     runByInstitutionId( 14L )
   }
 
-  @Scheduled(cron = '0 18 * * * *')
+  @Scheduled(cron = '0 18 6-22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
   }
 
-  @Scheduled(cron = '0 20 * * * *')
+  @Scheduled(cron = '0 20 6-22 * * *')
   void runBancoppel() {
     runByInstitutionId( 16L )
   }
