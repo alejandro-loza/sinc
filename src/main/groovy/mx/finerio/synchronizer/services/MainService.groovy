@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service
 @Service
 class MainService {
 
+  @Value('${synchronizer.credential_sync_time}')
+  Integer syncTime
+
   @Value('${synchronizer.max_threads}')
   Integer maxThreads
 
@@ -142,7 +145,7 @@ class MainService {
 
     def cal = Calendar.instance
     cal.time = new Date()
-    cal.add( Calendar.HOUR, -72 )
+    cal.add( Calendar.HOUR, -syncTime )
     cal.time
 
   }
