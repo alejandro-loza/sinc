@@ -12,15 +12,12 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
 @Service
-class MainService {
+class MainFailedService {
 
-  @Value('${synchronizer.credential_sync_time}')
-  Integer syncTime
-
-  @Value('${synchronizer.max_threads}')
+  @Value('${synchronizer.credential_failed_max_threads}')
   Integer maxThreads
 
-  @Value('${synchronizer.batch_timeout}')
+  @Value('${synchronizer.credential_failed_batch_timeout}')
   Integer batchTimeout
 
   @Autowired
@@ -35,57 +32,57 @@ class MainService {
   @Autowired
   FinancialInstitutionRepository financialInstitutionRepository
 
-  @Scheduled(cron = '0 0 6-22 * * *')
+  @Scheduled(cron = '0 30 6,10,14,18,22 * * *')
   void runBanamex() {
     runByInstitutionId( 2L )
   }
 
-  @Scheduled(cron = '0 2 6-22 * * *')
+  @Scheduled(cron = '0 32 6,10,14,18,22 * * *')
   void runSantander() {
     runByInstitutionId( 7L )
   }
 
-  @Scheduled(cron = '0 4 6-22 * * *')
+  @Scheduled(cron = '0 34 6,10,14,18,22 * * *')
   void runHsbc() {
     runByInstitutionId( 8L )
   }
 
-  @Scheduled(cron = '0 6 6-22 * * *')
+  @Scheduled(cron = '0 36 6,10,14,18,22 * * *')
   void runAmex() {
     runByInstitutionId( 9L )
   }
 
-  @Scheduled(cron = '0 8 6-22 * * *')
+  @Scheduled(cron = '0 38 6,10,14,18,22 * * *')
   void runInvex() {
     runByInstitutionId( 10L )
   }
 
-  @Scheduled(cron = '0 10 6-22 * * *')
+  @Scheduled(cron = '0 40 6,10,14,18,22 * * *')
   void runScotiabank() {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 12 6-22 * * *')
+  @Scheduled(cron = '0 42 6,10,14,18,22 * * *')
   void runBanorte() {
     runByInstitutionId( 12L )
   }
 
-  @Scheduled(cron = '0 14 6-22 * * *')
+  @Scheduled(cron = '0 44 6,10,14,18,22 * * *')
   void runInbursa() {
     runByInstitutionId( 13L )
   }
 
-  @Scheduled(cron = '0 16 6-22 * * *')
+  @Scheduled(cron = '0 46 6,10,14,18,22 * * *')
   void runBancoAzteca() {
     runByInstitutionId( 14L )
   }
 
-  @Scheduled(cron = '0 18 6-22 * * *')
+  @Scheduled(cron = '0 48 6,10,14,18,22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
   }
 
-  @Scheduled(cron = '0 20 6-22 * * *')
+  @Scheduled(cron = '0 50 6,10,14,18,22 * * *')
   void runBancoppel() {
     runByInstitutionId( 16L )
   }
@@ -136,29 +133,14 @@ class MainService {
 
   private List getCredentialIds( institutionId ) throws Exception {
 
-    credentialService.findAllIdsByInstitutionId(
-        institutionId, getLastUpdated() )
-
-  }
-
-  private Date getLastUpdated() throws Exception {
-
-    def cal = Calendar.instance
-    cal.time = new Date()
-    cal.add( Calendar.HOUR, -syncTime )
-    cal.time
+    def calendar = Calendar.instance
+    calendar.add( Calendar.HOUR_OF_DAY, -4 )
+    def to = new Date( calendar.time.time )
+    calendar.add( Calendar.HOUR_OF_DAY, -4 )
+    def from = new Date( calendar.time.time )
+    credentialService.findAllFailedIdsByInstitutionId( institutionId, from, to )
 
   }
 
 }
 
-class MyThread implements Runnable {
-
-  ApiService apiService
-  String credentialId
-
-  void run() {
-    apiService.updateCredential( credentialId )
-  }
-
-}

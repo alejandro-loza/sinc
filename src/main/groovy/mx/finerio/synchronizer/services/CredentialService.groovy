@@ -20,4 +20,13 @@ class CredentialService {
 
   }
 
+  List findAllFailedIdsByInstitutionId( Long institutionId, Date from, Date to )
+      throws Exception {
+
+    credentialRepository.
+        findAllByInstitutionIdAndStatusAndStatusCodeNotAndLastUpdatedGreaterThanEqualAndLastUpdatedLessThanEqualAndDateDeletedIsNull(
+            institutionId, 'INVALID', '401', from, to )*.id
+
+  }
+
 }
