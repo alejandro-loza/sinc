@@ -136,7 +136,7 @@ class MainFailedService {
     def calendar = Calendar.instance
     calendar.add( Calendar.HOUR_OF_DAY, -4 )
     def to = new Date( calendar.time.time )
-    calendar.add( Calendar.HOUR_OF_DAY, -4 )
+    calendar.add( Calendar.HOUR_OF_DAY, -168 )
     def from = new Date( calendar.time.time )
     credentialService.findAllFailedIdsByInstitutionId( institutionId, from, to )
 
