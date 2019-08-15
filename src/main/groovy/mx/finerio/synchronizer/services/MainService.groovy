@@ -112,6 +112,7 @@ class MainService {
 
     while ( indexPointer < ids.size() ) {
 
+      if ( !credentialsCanBeSynchronized() ) { return }
       def executorService = Executors.newCachedThreadPool()
       def totalThreads = 0
 
@@ -147,6 +148,13 @@ class MainService {
     cal.time = new Date()
     cal.add( Calendar.HOUR, -syncTime )
     cal.time
+
+  }
+
+  private boolean credentialsCanBeSynchronized() throws Exception {
+
+    def hour = Calendar.instance.get( Calendar.HOUR_OF_DAY )
+    return hour >= 6 && hour <= 22
 
   }
 

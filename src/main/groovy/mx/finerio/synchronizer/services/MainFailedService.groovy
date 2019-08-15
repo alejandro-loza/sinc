@@ -109,6 +109,7 @@ class MainFailedService {
 
     while ( indexPointer < ids.size() ) {
 
+      if ( !credentialsCanBeSynchronized() ) { return }
       def executorService = Executors.newCachedThreadPool()
       def totalThreads = 0
 
@@ -139,6 +140,13 @@ class MainFailedService {
     calendar.add( Calendar.HOUR_OF_DAY, -168 )
     def from = new Date( calendar.time.time )
     credentialService.findAllFailedIdsByInstitutionId( institutionId, from, to )
+
+  }
+
+  private boolean credentialsCanBeSynchronized() throws Exception {
+
+    def hour = Calendar.instance.get( Calendar.HOUR_OF_DAY )
+    return hour >= 6 && hour <= 22
 
   }
 
