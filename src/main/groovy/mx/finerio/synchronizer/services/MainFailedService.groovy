@@ -32,57 +32,57 @@ class MainFailedService {
   @Autowired
   FinancialInstitutionRepository financialInstitutionRepository
 
-  @Scheduled(cron = '0 30 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 30 6,14,22 * * *')
   void runBanamex() {
     runByInstitutionId( 2L )
   }
 
-  @Scheduled(cron = '0 32 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 32 6,14,22 * * *')
   void runSantander() {
     runByInstitutionId( 7L )
   }
 
-  @Scheduled(cron = '0 34 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 34 6,14,22 * * *')
   void runHsbc() {
     runByInstitutionId( 8L )
   }
 
-  @Scheduled(cron = '0 36 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 36 6,14,22 * * *')
   void runAmex() {
     runByInstitutionId( 9L )
   }
 
-  @Scheduled(cron = '0 38 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 38 6,14,22 * * *')
   void runInvex() {
     runByInstitutionId( 10L )
   }
 
-  @Scheduled(cron = '0 40 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 40 6,14,22 * * *')
   void runScotiabank() {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 42 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 42 6,14,22 * * *')
   void runBanorte() {
     runByInstitutionId( 12L )
   }
 
-  @Scheduled(cron = '0 44 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 44 6,14,22 * * *')
   void runInbursa() {
     runByInstitutionId( 13L )
   }
 
-  @Scheduled(cron = '0 46 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 46 6,14,22 * * *')
   void runBancoAzteca() {
     runByInstitutionId( 14L )
   }
 
-  @Scheduled(cron = '0 48 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 48 6,14,22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
   }
 
-  @Scheduled(cron = '0 50 6,10,14,18,22 * * *')
+  @Scheduled(cron = '0 50 6,14,22 * * *')
   void runBancoppel() {
     runByInstitutionId( 16L )
   }
@@ -135,7 +135,7 @@ class MainFailedService {
   private List getCredentialIds( institutionId ) throws Exception {
 
     def calendar = Calendar.instance
-    calendar.add( Calendar.HOUR_OF_DAY, -4 )
+    calendar.add( Calendar.HOUR_OF_DAY, -8 )
     def to = new Date( calendar.time.time )
     calendar.add( Calendar.HOUR_OF_DAY, -168 )
     def from = new Date( calendar.time.time )
