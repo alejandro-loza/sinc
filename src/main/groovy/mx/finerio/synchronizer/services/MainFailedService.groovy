@@ -37,7 +37,7 @@ class MainFailedService {
     runByInstitutionId( 2L )
   }
 
-  @Scheduled(cron = '0 32 6,14,22 * * *')
+  @Scheduled(cron = '0 32 14 * * *')
   void runSantander() {
     runByInstitutionId( 7L )
   }
