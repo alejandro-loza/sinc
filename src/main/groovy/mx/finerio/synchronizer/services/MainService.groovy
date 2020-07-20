@@ -65,21 +65,6 @@ class MainService {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 12 6-22 * * *')
-  void runBanorte() {
-    runByInstitutionId( 12L )
-  }
-
-  @Scheduled(cron = '0 14 6-22 * * *')
-  void runInbursa() {
-    runByInstitutionId( 13L )
-  }
-
-  @Scheduled(cron = '0 16 6-22 * * *')
-  void runBancoAzteca() {
-    runByInstitutionId( 14L )
-  }
-
   @Scheduled(cron = '0 18 6-22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
