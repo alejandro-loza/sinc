@@ -62,21 +62,6 @@ class MainFailedService {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 42 6,14,22 * * *')
-  void runBanorte() {
-    runByInstitutionId( 12L )
-  }
-
-  @Scheduled(cron = '0 44 6,14,22 * * *')
-  void runInbursa() {
-    runByInstitutionId( 13L )
-  }
-
-  @Scheduled(cron = '0 46 6,14,22 * * *')
-  void runBancoAzteca() {
-    runByInstitutionId( 14L )
-  }
-
   @Scheduled(cron = '0 48 6,14,22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
