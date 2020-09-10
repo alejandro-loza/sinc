@@ -15,7 +15,7 @@ class CredentialService {
       throws Exception {
 
     credentialRepository.
-        findAllByInstitutionIdAndProviderIdAndStatusAndLastUpdatedLessThanAndDateDeletedIsNull(
+        findAllByInstitutionIdAndProviderIdAndStatusAndAutomaticFetchingIsTrueAndLastUpdatedLessThanAndDateDeletedIsNull(
             institutionId, 3L, 'ACTIVE', lastUpdated )*.id
 
   }
@@ -24,7 +24,7 @@ class CredentialService {
       throws Exception {
 
     credentialRepository.
-        findAllByInstitutionIdAndStatusAndStatusCodeNotAndLastUpdatedGreaterThanEqualAndLastUpdatedLessThanEqualAndDateDeletedIsNull(
+        findAllByInstitutionIdAndStatusAndStatusCodeNotAndAutomaticFetchingIsTrueAndLastUpdatedGreaterThanEqualAndLastUpdatedLessThanEqualAndDateDeletedIsNull(
             institutionId, 'INVALID', '401', from, to )*.id
 
   }
