@@ -62,14 +62,19 @@ class MainFailedService {
     runByInstitutionId( 11L )
   }
 
-  @Scheduled(cron = '0 48 6,14,22 * * *')
+  @Scheduled(cron = '0 42 6,14,22 * * *')
   void runLiverpool() {
     runByInstitutionId( 15L )
   }
 
-  @Scheduled(cron = '0 50 6,14,22 * * *')
+  @Scheduled(cron = '0 44 6,14,22 * * *')
   void runBancoppel() {
     runByInstitutionId( 16L )
+  }
+
+  @Scheduled(cron = '0 46 6,14,22 * * *')
+  void runBanregio() {
+    runByInstitutionId( 17L )
   }
 
   private void runByInstitutionId( Long institutionId ) {
