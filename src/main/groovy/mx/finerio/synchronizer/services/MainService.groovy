@@ -75,6 +75,11 @@ class MainService {
     runByInstitutionId( 16L )
   }
 
+  @Scheduled(cron = '0 22 6-22 * * *')
+  void runBanregio() {
+    runByInstitutionId( 17L )
+  }
+
   private void runByInstitutionId( Long institutionId ) {
 
     if ( isInstitutionActive( institutionId ) ) {
